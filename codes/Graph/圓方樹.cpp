@@ -1,8 +1,10 @@
 /*
 Tested : https://cses.fi/paste/09f2afa2bfd9b6a5e92eb8/
+         https://codeforces.com/gym/102835/submission/360263301
+         https://codeforces.com/contest/1986/submission/36026541
 Author : std_abs
 */
-struct BCC_AP { // 0-based, remember to build
+struct BCC_AP { // 0-based, remember to build, 不支援重邊
     int n, nbcc; // 注意孤點不會有任何方點連接
     vector<vector<int>> E, F; // id >= n: 方點
     vector<int> pa, dep, low, stk, paf, depf;
@@ -23,6 +25,8 @@ struct BCC_AP { // 0-based, remember to build
             } else low[v] = min(low[v], dep[u]);
         }
     }
+    bool is_bridge(int u, int v) {
+        return (F[bcc_id(u, v) + n].size() == 2); }
     // 判斷原圖上的一個點是不是割點
     bool is_cut(int x) { return F[x].size() != 1; }
     // 回傳第 id 個 bcc 的每個點 (0-based)
