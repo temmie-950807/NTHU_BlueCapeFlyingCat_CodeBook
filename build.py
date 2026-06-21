@@ -158,6 +158,8 @@ def remove_long_comment_from_start(file_path):
         if content.strip().startswith("/*"):
             # 找到第一個 */ 的位置
             end_pos = content.find("*/")
+            if content.find("*/\n"):
+                end_pos += 1
             if end_pos != -1:
                 # 移除從開頭到 */ 的內容（包括 */）
                 remaining_content = content[end_pos + 2:]
