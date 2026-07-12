@@ -1,5 +1,6 @@
 /*
 Tested: https://cses.fi/problemset/hack/3227/entry/17905886/
+        https://judge.yosupo.jp/submission/385180
 */
 // 全部都是 0-based
 // 宣告：LC_Segment_Tree st(n);  // n = 值域大小，x 的範圍為 [0, n)
