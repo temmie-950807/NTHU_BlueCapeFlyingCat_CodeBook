@@ -1,3 +1,6 @@
+/*
+Tested : https://judge.yosupo.jp/submission/387108
+*/
 // 注意，當 |s|=1 時，lcp 不會有值，務必測試 |s|=1 的 case
 struct SuffixArray {
     string s;
@@ -38,16 +41,17 @@ struct SuffixArray {
         induce_sort(q);
     }
 
-    // 8c731c, lim 要調整成字元集大小，_s 不可以有 0
+    // da9ddf, O(n + lim), lim = max{s[i]}
     template<typename T>
-    SuffixArray(const T& _s, int lim = 256) : s(_s) {
-        s.push_back(0);
-        int n = s.length();
+    SuffixArray(const T& _s) : s(_s.begin(), _s.end()) {
+        s.push_back(-1);
+        for (auto &i:s) i += 1;
+        int n = s.size(), lim = *max_element(s.begin(), s.end()) + 5;
         sa.resize(n);
         lcp.resize(n);
         vector<int> bkt(n + lim * 2), p(n * 2), t(n * 2), rank(n);
         sais(&s[0], n, &sa[0], &bkt[0], &p[0], &t[0], lim);
-        
+
         for (int i=1 ; i<n ; i++) rank[sa[i]] = i;
         for (int i=0, j, k=0 ; i<n-1 ; lcp[rank[i++]]=k){
             for (k && k--, j=sa[rank[i]-1] ; i+k<s.size() && j+k<s.size() && s[i+k]==s[j+k] ; k++);
