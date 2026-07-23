@@ -1,5 +1,7 @@
 /*
-    Author : std_abs
+    Based on std_abs's SAM template.
+    Haven't checked whether rebuild is correct.
+    Tested : https://www.luogu.com.cn/record/288050837
 */
 // root node is 0
 // node -> strings with the same endpos set,
@@ -11,13 +13,13 @@
 struct SAM {
   static constexpr int N = (int)(1e5 + 10), Z = 26;
   int ch[2 * N][Z], len[2 * N], link[2 * N], pos[2 * N], cnt[2 * N], sz;
-  SAM () { reset(); }
   int newnode() {
     fill_n(ch[sz], Z, 0);
     len[sz] = link[sz] = pos[sz] = cnt[sz] = 0;
     return sz++;
   }
   void build(string s) {
+    sz = 0, newnode(), link[0] = -1;
     int lst = 0;
     for (int i = 0; i < s.size(); ++i) {
       int c = s[i] - 'a'; // you may need to change to 'A'
@@ -52,5 +54,4 @@ struct SAM {
     for (int i = 0; i < sz; ++i) if (~link[p[i]])
       cnt[link[p[i]]] += cnt[p[i]];
   }
-  void reset() { sz = 0, newnode(), link[0] = -1; }
 };
