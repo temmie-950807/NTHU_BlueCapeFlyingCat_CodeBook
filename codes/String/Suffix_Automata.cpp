@@ -1,7 +1,10 @@
 /*
     Based on std_abs's SAM template.
     Haven't checked whether rebuild is correct.
+
     Tested : https://www.luogu.com.cn/record/288050837
+             https://qoj.ac/submission/2658596
+             https://cses.fi/paste/82cea009edcd771e1138ab2/
 */
 // root node is 0
 // node -> strings with the same endpos set,
@@ -47,8 +50,8 @@ struct SAM {
       cnt[cur]++, lst = cur;
     }
     vector <int> p(sz);
-    iota(all(p), 0);
-    sort(all(p), [&](int i, int j) {
+    iota(p.begin(), p.end(), 0);
+    sort(p.begin(), p.end(), [&](int i, int j) {
       return len[i] > len[j];
     });
     for (int i = 0; i < sz; ++i) if (~link[p[i]])
