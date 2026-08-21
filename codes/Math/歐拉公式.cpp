@@ -14,21 +14,22 @@ int phi(int n){
     return ret;
 }
 
-// O(n log n)，回傳 1~n 的 phi 值
-vector<int> phi_1_to_n(int n){
-    vector<int> phi(n+1);
-    phi[0]=0;
-    phi[1]=1;
-
-    for (int i=2 ; i<=n ; i++){
-        phi[i]=i-1;
-    }
-
-    for (int i=2 ; i<=n ; i++){
-        for (int j=2*i ; j<=n ; j+=i){ // 枚舉所有倍數
-            phi[j]-=phi[i];
+// O(n)，回傳 1~n 的 phi 值
+vector<int> phi_1_to_n(int n) {
+    vector<int> primes, lpf(n + 1), phi(n + 1);
+    phi[0] = 0; phi[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+        if (lpf[i] == 0) {
+            primes.push_back(i);
+            lpf[i] = i;
         }
+        for (auto p : primes) {
+            if (i * p > n) break;
+            lpf[i * p] = p;
+            if (i % p == 0) break;
+        }
+        bool b = i % (lpf[i] * lpf[i]);
+        phi[i] = phi[i / lpf[i]] * (lpf[i] - b);
     }
-
     return phi;
 }
