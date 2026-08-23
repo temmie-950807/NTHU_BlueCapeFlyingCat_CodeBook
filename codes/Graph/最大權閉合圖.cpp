@@ -1,7 +1,6 @@
 // 邊 u → v 表示選 u 就要選 v (0-based)
 // 保證回傳值非負
-// 構造：從 S 開始 dfs，不走最小割的邊，
-// 所有經過的點就是要選的那些點。
+// 構造：呼叫 construct，選那些 vis 是 true 的點。
 // 一般圖：O(n²m) / 二分圖：O(m√n)
 template<typename U>
 U maximum_closure(vector<U> w, vector<pair<int,int>> EV) {
