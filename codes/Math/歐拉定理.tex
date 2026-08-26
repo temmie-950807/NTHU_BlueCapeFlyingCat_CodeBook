@@ -1,7 +1,9 @@
-\noindent
-若 $a, m$ 互質，則：
-$$a^n \equiv a^{n \bmod \varphi(m)} \pmod m$$
-
-\noindent
-若 $a, m$ 不互質，則：
-$$a^n \equiv a^{\varphi(m) + [n\bmod \varphi(m)]} \pmod m$$
+\[
+a^n \equiv
+\begin{cases}
+a^{n \bmod \varphi(m)}, & \gcd(a,m)=1,\\
+a^n, & \gcd(a,m)\ne 1,\ n<\varphi(m),\\
+a^{(n\bmod\varphi(m))+\varphi(m)}, & \gcd(a,m)\ne 1,\ n\ge\varphi(m).
+\end{cases}
+\pmod m
+\]
