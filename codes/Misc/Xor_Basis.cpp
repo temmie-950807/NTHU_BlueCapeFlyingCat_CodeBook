@@ -11,7 +11,7 @@ bool check(int x){
     for (auto v : basis){
         x=min(x, x^v);
     }
-    return 0;
+    return (x == 0);
 }
 
 // 給一數字集合 S，求能 XOR 出多少數字

@@ -12,7 +12,7 @@
 // link -> longest suffix with different endpos set
 // len  -> longest path length from root
 // cnt  -> size of endpos set
-// node's endpos set -> pos (1-based) in the subtree (link) of node
+// node's endpos set -> pos (1-based) in the subtree (link) of node (Some node have pos = 0 and should be ignored)
 struct SAM {
   static constexpr int N = (int)(1e5 + 10), Z = 26;
   int ch[2 * N][Z], len[2 * N], link[2 * N], pos[2 * N], cnt[2 * N], sz;
