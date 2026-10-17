@@ -51,7 +51,9 @@ jobs:
           key: cv-${{ hashFiles('tests/**') }}
           restore-keys: cv-
       - run: python3 tests/build_geometry.py
-      - run: competitive-verifier oj-resolve --include tests --config tests/config.toml > verify_files.json
+      # math_brute 引用 Lucas's_Theorem.cpp，檔名的 ' 會讓 oj-resolve 的 shlex 當掉，改成直接編譯執行
+      - run: g++ -std=c++17 -O2 -I. tests/math_brute.test.cpp -o /tmp/math_brute && /tmp/math_brute
+      - run: competitive-verifier oj-resolve --include tests --exclude tests/math_brute.test.cpp --config tests/config.toml > verify_files.json
       - run: |
           ulimit -s unlimited
           competitive-verifier verify --verify-json verify_files.json --check-error --write-summary
