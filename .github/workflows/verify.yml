@@ -7,6 +7,13 @@ on:
   workflow_dispatch:
 
 jobs:
+  # 段落 hash 是否為最新（不用產生測資，約 10 秒）
+  hash:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tests/check_hash.py
+
   verify:
     runs-on: ubuntu-latest
     steps:
