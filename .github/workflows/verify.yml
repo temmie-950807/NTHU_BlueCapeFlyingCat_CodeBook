@@ -21,8 +21,9 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq --no-install-recommends texlive-xetex texlive-lang-cjk texlive-latex-extra poppler-utils > /dev/null
-      - run: python3 build.py
+          sudo apt-get install -y -qq --no-install-recommends texlive-xetex texlive-lang-cjk texlive-lang-chinese texlive-latex-extra poppler-utils > /dev/null
+      # 先刪掉 repo 裡的舊 PDF，xelatex 失敗時才不會拿舊檔通過檢查
+      - run: rm -f Codebook.pdf && python3 build.py && grep -q "Output written on Codebook.pdf" Codebook.log
       - run: |
           pages=$(pdfinfo Codebook.pdf | awk '/^Pages:/ {print $2}')
           echo "Codebook.pdf：$pages 頁（上限 25）" >> "$GITHUB_STEP_SUMMARY"
