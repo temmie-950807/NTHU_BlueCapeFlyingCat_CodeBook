@@ -1,7 +1,7 @@
 // 給定一個有向圖，迴回傳縮點後的圖、SCC 的資訊
 // 所有點都以 based-0 編號
 // 函式：
-// .compress: O(n log n) 計算 G3、SCC、SCC_id 的資訊，並把縮點後的結果存在 result 裡
+// .compress: O(n + m log m) 計算 G3、SCC、SCC_id 的資訊，並把縮點後的結果存在 result 裡
 // SCC[i] = 某個 SCC 中的所有點
 // SCC_id[i] = 第 i 個點在第幾個 SCC
 struct SCC_compress{
@@ -44,6 +44,7 @@ struct SCC_compress{
         for (auto x : G[now]) if (!vis[x]) dfs2(G, x);
     }
 
+    // 87e88e
     void compress(){
         fill(vis.begin(), vis.end(), 0);
         for (int i=0 ; i<N ; i++) if (!vis[i]) dfs1(G, i);

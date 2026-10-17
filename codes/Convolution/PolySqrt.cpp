@@ -1,6 +1,7 @@
 /* Tested: https://judge.yosupo.jp/submission/319715
 Write by: ChatGPT */
 // ---- sqrt for formal power series over MOD=998244353 ----
+// b17ddb
 int mod_sqrt(int a) { // Tonelli–Shanks; return -1 if no solution
     a %= MOD; if (a < 0) a += MOD;
     if (a == 0) return 0;
@@ -32,6 +33,7 @@ int mod_sqrt(int a) { // Tonelli–Shanks; return -1 if no solution
     return (int)x;
 }
 
+// 4a0a48
 vector<int> polySqrt(vector<int> a) {
     int n = (int)a.size();
 

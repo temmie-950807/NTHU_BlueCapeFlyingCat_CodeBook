@@ -2,8 +2,9 @@
 using namespace std;
  
 long long l, r;
-long long dp[20][10][2][2]; // dp[pos][pre][limit] = 後 pos 位，pos 前一位是 pre，（是/否）有上界，（是/否）有前綴零的答案數量
+long long dp[20][10][2][2]; // dp[pos][pre][limit][lead] = 後 pos 位，pos 前一位是 pre，（是/否）有上界，（是/否）有前綴零的答案數量
  
+// 1763f3
 long long memorize_search(string &s, int pos, int pre, bool limit, bool lead){
  
     // 已經被找過了，直接回傳值
@@ -46,7 +47,7 @@ int main(){
     // input
     cin >> l >> r;
  
-    // output - 計算 [l, r] 有多少數字任意兩個位數都不相同
+    // output - 計算 [l, r] 有多少數字相鄰兩個位數都不相同
     cout << find_answer(r)-find_answer(l-1) << "\n";
  
     return 0;

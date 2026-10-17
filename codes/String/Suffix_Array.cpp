@@ -1,7 +1,7 @@
 /*
 Tested : https://judge.yosupo.jp/submission/387108
 */
-// 注意，當 |s|=1 時，lcp 不會有值，務必測試 |s|=1 的 case
+// 注意，|s| 至少要是 1；當 |s|=1 時，lcp 不會有值，務必測試 |s|=1 的 case
 struct SuffixArray {
     string s;
     vector<int> sa, lcp;
@@ -62,7 +62,7 @@ struct SuffixArray {
         s.pop_back();
     }
 
-    // f49583
+    // 052e3e
     vector<int> pos; // pos[i] = i 這個值在 pos 的哪個地方
     SparseTable st;
     void init_lcp(){
@@ -78,7 +78,7 @@ struct SuffixArray {
     // 用之前記得 init
     // 查詢「sa 上的位置」的 x 跟 y 的 lcp
     int get_lcp(int x, int y){
-        if (x==y) return s.size()-x;
+        if (x==y) return s.size()-sa[x];
         if (x>y) swap(x, y);
         return st.query(x, y);
     }
@@ -101,7 +101,7 @@ struct SuffixArray {
 
     // 檢查 [l1, r1] 跟 [l2, r2] 的大小關係，0-based
     // 如果前者小於後者，就回傳 <0，相等就回傳 =0，否則回傳 >0
-    // 5b8db0
+    // 37ca36
     int substring_cmp(int l1, int r1, int l2, int r2){
         int len_1 = r1-l1+1;
         int len_2 = r2-l2+1;

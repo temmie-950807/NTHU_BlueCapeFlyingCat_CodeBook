@@ -17,7 +17,7 @@ struct Lagrange{
                 if (i==j) continue;
                 now *= ((x-v[j].first)+MOD)%MOD;
                 now %= MOD;
-                now *= (qp((v[i].first-v[j].first+MOD)%MOD, MOD-2)+MOD)%MOD;
+                now *= (qp((v[i].first-v[j].first+MOD)%MOD, MOD-2, MOD)+MOD)%MOD;
                 now %= MOD;
             }
 

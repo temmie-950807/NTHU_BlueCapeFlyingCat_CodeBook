@@ -1,5 +1,5 @@
-// 0-based
-void C3C4(vector<int> deg, vector<array<int, 2>> edges){
+// 0-based，需為簡單圖（無重邊、自環），回傳 {C3 數量, C4 數量}
+array<int, 2> C3C4(vector<int> deg, vector<array<int, 2>> edges){
     int N = deg.size();
     int M = edges.size();
     
@@ -32,5 +32,5 @@ void C3C4(vector<int> deg, vector<array<int, 2>> edges){
         for (int y : D[x]) for (int z : adj[y])
             if (rk[z] > rk[x]) --vis[z];
     }   // both are O(M*sqrt(M)), test @ 2022 CCPC guangzhou
-    cout << c4 << "\n";
+    return {c3, c4};
 }

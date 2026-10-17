@@ -262,7 +262,7 @@ def cmp(x):
 def texCodeGen(out, FileDict, FileList):
     for key in sorted(FileDict.keys(), key=cmp):
         out.write("\\section{" + key + "}\n")
-        for file_extension, sort_value, name, path in sorted(FileDict[key], key = lambda x : [x[1], x[2]]):
+        for file_extension, sort_value, name, path in sorted(FileDict[key], key = lambda x : [x[1], x[2].lower()]):
             # 對於 C++ 文件，如果有長註解需要特殊處理
             if file_extension == ".cpp":
                 processed_content, has_comment = remove_long_comment_from_start(path)

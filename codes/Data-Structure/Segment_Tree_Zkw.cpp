@@ -24,6 +24,7 @@ struct SegmentTreeZkw { // 1-based index
             seg[i] = merge(seg[i << 1], seg[i << 1 | 1]);
         }
     }
+    // 0391a5
     void range_update(int l, int r, U val) {
         l += m; r += m;
         int l0 = l, r0 = r;
@@ -57,6 +58,7 @@ struct SegmentTreeZkw { // 1-based index
     T merge(T x, T y) {
         return {x[0] + y[0], (x[1] + hmul_pow[x[0]] * y[1]) % mod};
     }
+    // 569194
     T query(int l, int r) { // [l, r]
         T resl = empty_node, resr = empty_node;
         l += m; r += m;

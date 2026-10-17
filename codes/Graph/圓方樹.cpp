@@ -28,7 +28,7 @@ struct BCC_AP { // 0-based, remember to build, 不支援重邊
     bool is_bridge(int u, int v) {
         return (F[bcc_id(u, v) + n].size() == 2); }
     // 判斷原圖上的一個點是不是割點
-    bool is_cut(int x) { return F[x].size() != 1; }
+    bool is_cut(int x) { return F[x].size() > 1; }
     // 回傳第 id 個 bcc 的每個點 (0-based)
     vector<int> bcc(int id) { return F[id + n]; }
     // 對於邊 (u, v) 回傳包含它的 bcc id（每條邊都恰好被一個 bcc 包含）

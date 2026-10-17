@@ -14,7 +14,7 @@ int qp(int b, int p, int m){
     return ret;
 }
 
-// ed23aa
+// ab2973
 vector<int> llsprp = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 bool is_prime(int n, vector<int> sprp = llsprp){
     if (n==2) return 1;

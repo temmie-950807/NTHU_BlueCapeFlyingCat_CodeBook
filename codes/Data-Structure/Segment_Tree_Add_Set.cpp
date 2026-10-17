@@ -7,14 +7,17 @@ struct SegmentTree{
     struct node{
         int add_tag = 0;
         int set_tag = 0;
+        bool has_set = false;
         int sum = 0;
-        int ma = 0;
+        int ma = -INF;
     };
  
+    int n;
     vector<node> arr;
 
-    SegmentTree(int n){
-        arr.resize(n<<2);
+    void init(int _n){
+        n = _n;
+        arr.assign(n<<2, node());
     }
  
     node pull(node A, node B){
@@ -24,18 +27,20 @@ struct SegmentTree{
         return C;
     }
  
-     // cce0c8
+     // 59909c
     void push(int idx, int ll, int rr){
-        if (arr[idx].set_tag!=0){
+        if (arr[idx].has_set){
             arr[idx].sum = (rr-ll)*arr[idx].set_tag;
             arr[idx].ma = arr[idx].set_tag;
             if (rr-ll>1){
                 arr[idx*2+1].add_tag = 0;
                 arr[idx*2+1].set_tag = arr[idx].set_tag;
+                arr[idx*2+1].has_set = true;
                 arr[idx*2+2].add_tag = 0;
                 arr[idx*2+2].set_tag = arr[idx].set_tag;
+                arr[idx*2+2].has_set = true;
             }
-            arr[idx].set_tag = 0;
+            arr[idx].has_set = false;
         }
         if (arr[idx].add_tag!=0){
             arr[idx].sum += (rr-ll)*arr[idx].add_tag;
@@ -48,7 +53,8 @@ struct SegmentTree{
         }
     }
  
-    void build(vector<int> &v, int idx = 0, int ll = 0, int rr = n){
+    void build(vector<int> &v, int idx = 0, int ll = 0, int rr = -1){
+        if (rr==-1) rr = n;
         if (rr-ll==1){
             arr[idx].sum = v[ll];
             arr[idx].ma = v[ll];
@@ -60,7 +66,8 @@ struct SegmentTree{
         }
     }
  
-    void add(int ql, int qr, int val, int idx = 0, int ll = 0, int rr =n){
+    void add(int ql, int qr, int val, int idx = 0, int ll = 0, int rr = -1){
+        if (rr==-1) rr = n;
         push(idx, ll, rr);
         if (rr<=ql || qr<=ll) return;
         if (ql<=ll && rr<=qr){
@@ -74,12 +81,14 @@ struct SegmentTree{
         arr[idx]=pull(arr[idx*2+1], arr[idx*2+2]);
     }
  
-    void set(int ql, int qr, int val, int idx=0, int ll=0, int rr=n){
+    void set(int ql, int qr, int val, int idx=0, int ll=0, int rr=-1){
+        if (rr==-1) rr = n;
         push(idx, ll, rr);
         if (rr<=ql || qr<=ll) return;
         if (ql<=ll && rr<=qr){
             arr[idx].add_tag = 0;
             arr[idx].set_tag = val;
+            arr[idx].has_set = true;
             push(idx, ll, rr);
             return;
         }
@@ -89,7 +98,8 @@ struct SegmentTree{
         arr[idx] = pull(arr[idx*2+1], arr[idx*2+2]);
     }
  
-    node query(int ql, int qr, int idx = 0, int ll = 0, int rr = n){
+    node query(int ql, int qr, int idx = 0, int ll = 0, int rr = -1){
+        if (rr==-1) rr = n;
         push(idx, ll, rr);
         if (rr<=ql || qr<=ll) return node();
         if (ql<=ll && rr<=qr) return arr[idx];

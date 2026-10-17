@@ -1,4 +1,5 @@
 // Returns sum_{i=0}^{n-1} floor((a*i + b) / m)
+// Requires a, b >= 0, m >= 1
 // log( max(a, m) )
 int floor_sum(int n, int m, int a, int b) {
     int ans = 0;

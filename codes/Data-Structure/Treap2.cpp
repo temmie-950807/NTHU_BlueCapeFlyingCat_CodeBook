@@ -5,8 +5,9 @@ int pri[MAX_N], val[MAX_N];
 int sz[MAX_N], tag[MAX_N], fa[MAX_N], total[MAX_N];
 // tag 為不包含自己（僅要給子樹）的資訊
 int nodeCnt = 0;
-int& new_node(int v){
+int new_node(int v){
     nodeCnt++;
+    lc[nodeCnt] = rc[nodeCnt] = tag[nodeCnt] = fa[nodeCnt] = 0;
     val[nodeCnt] = v;
     total[nodeCnt] = v;
     sz[nodeCnt] = 1;
@@ -52,6 +53,7 @@ int merge(int a, int b){
 }
 
 // [1, k] [k+1, n]
+// 6563ad
 void split(int x, int k, int &a, int &b) {
     if (!x) return a = b = 0, void();
     push(x);
@@ -68,6 +70,7 @@ void split(int x, int k, int &a, int &b) {
 
 // functions
 // 回傳 x 在 Treap 中的位置
+// bab563
 int get_pos(int x){
     vector<int> sta;
     while (fa[x]){

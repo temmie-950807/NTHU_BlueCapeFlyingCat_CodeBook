@@ -1,18 +1,18 @@
 // 一般圖：O(EV²)
-// 二分圖：O(E√V)
-struct Flow{
+// 單位容量二分圖：O(E√V)
+struct Dinic{
     using T = int; // 可以換成別的型別
     struct Edge{
         int v; T rc; int rid;
     };
     vector<vector<Edge>> G;
     void add(int u, int v, T c){
-        G[u].push_back({v, c, G[v].size()});
-        G[v].push_back({u, 0, G[u].size()-1});
+        G[u].push_back({v, c, (int)G[v].size()});
+        G[v].push_back({u, 0, (int)G[u].size()-1});
     }
     vector<int> dis, it;
 
-    Flow(int n){
+    Dinic(int n){
         G.resize(n);
         dis.resize(n);
         it.resize(n);

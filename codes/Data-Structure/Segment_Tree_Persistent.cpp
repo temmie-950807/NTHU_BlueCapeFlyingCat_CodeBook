@@ -1,12 +1,12 @@
 // 全部都是 0-based
-// Persistent_Segment_Tree st(n+q);
+// Persistent_Segment_Tree st; st.init(n, q); // q = clone + update 的總次數
 // st.build(v, 0);
 // 函式：
-// update_version(pos, val, ver)：對版本 ver 的 pos 位置改成 val
+// update_version(pos, val, ver)：對版本 ver 的 pos 位置改成 val（會直接改到 ver，要保留舊版請先 clone_version）
 // query_version(ql, qr, ver)：對版本 ver 查詢 [ql, qr) 的區間和
 // clone_version(ver)：複製版本 ver 到最新的版本
 struct Persistent_Segment_Tree{
-    int node_cnt = 0;
+    int n, node_cnt = 0;
     struct Node{
         int lc = -1;
         int rc = -1;
@@ -15,10 +15,10 @@ struct Persistent_Segment_Tree{
     vector<Node> arr;
     vector<int> version;
     
-    Persistent_Segment_Tree(int sz){
-        arr.resize(32*sz);
-        version.push_back(node_cnt++);
-        return;
+    void init(int _n, int q){ // 節點數 2n + q(lg n + 2)
+        n = _n, node_cnt = 0;
+        arr.assign(2*n+q*(__lg(n)+2), Node());
+        version.assign(1, node_cnt++);
     }
 
     void pull(Node &c, Node a, Node b){
@@ -26,7 +26,9 @@ struct Persistent_Segment_Tree{
         return;
     }
 
-    void build(vector<int> &v, int idx, int ll = 0, int rr = n){
+    // 33aebd
+    void build(vector<int> &v, int idx, int ll = 0, int rr = -1){
+        if (rr==-1) rr = n;
         auto &now = arr[idx];
 
         if (rr-ll==1){
@@ -43,7 +45,9 @@ struct Persistent_Segment_Tree{
         return;
     }
 
-    void update(int pos, int val, int idx, int ll = 0, int rr = n){
+    // 50136b
+    void update(int pos, int val, int idx, int ll = 0, int rr = -1){
+        if (rr==-1) rr = n;
         auto &now = arr[idx];
 
         if (rr-ll==1){
@@ -71,7 +75,8 @@ struct Persistent_Segment_Tree{
         update(pos, val, version[ver]);
     }
 
-    Node query(int ql, int qr, int idx, int ll = 0, int rr = n){
+    Node query(int ql, int qr, int idx, int ll = 0, int rr = -1){
+        if (rr==-1) rr = n;
         auto &now = arr[idx];
 
         if (ql<=ll && rr<=qr) return now;

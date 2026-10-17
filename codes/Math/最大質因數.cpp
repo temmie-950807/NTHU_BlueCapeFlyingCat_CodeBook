@@ -1,6 +1,6 @@
 void max_fac(int n, int &ret){
     if (n<=ret || n<2) return;
-    if (isprime(n)){
+    if (is_prime(n)){
         ret = max(ret, n);
         return;
     }

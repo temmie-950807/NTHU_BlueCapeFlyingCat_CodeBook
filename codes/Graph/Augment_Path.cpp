@@ -5,7 +5,7 @@ struct AugmentPath{
     vector<int> visx, visy;
     int stamp;
 
-    AugmentPath(int _n, int _m) : n(_n), m(_m), G(n), mx(n, -1), my(m, -1), visx(n), visy(n){
+    AugmentPath(int _n, int _m) : n(_n), m(_m), G(n), mx(n, -1), my(m, -1), visx(n), visy(m){
         stamp = 0;
     }
 
@@ -13,7 +13,7 @@ struct AugmentPath{
         G[x].push_back(y);
     }
 
-    // bb03e2
+    // 58d860
     bool dfs1(int now){
         visx[now] = stamp;
 
@@ -54,7 +54,7 @@ struct AugmentPath{
         return ret;
     }
 
-    // 645577
+    // c33be4
     void dfs2(int now){
         visx[now] = true;
  

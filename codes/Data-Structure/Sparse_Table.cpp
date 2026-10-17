@@ -2,7 +2,7 @@ struct SparseTable{
     vector<vector<int>> st;
     void build(vector<int> v){
         int h = __lg(v.size());
-        st.resize(h+1);
+        st.assign(h+1, {});
         st[0] = v;
 
         for (int i=1 ; i<=h ; i++){

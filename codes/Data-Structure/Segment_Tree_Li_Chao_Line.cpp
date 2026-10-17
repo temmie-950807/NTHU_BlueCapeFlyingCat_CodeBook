@@ -1,5 +1,5 @@
 // 全部都是 0-based
-// 宣告：LC_Segment_Tree st(n);
+// 宣告：LC_Segment_Tree st;（值域 [0, MAX_V)）
 // 函式：
 // update({a, b})：插入一條 y=ax+b 的全域直線
 // query(x)：查詢所有直線在位置 x 的最小值
@@ -16,10 +16,11 @@ struct LC_Segment_Tree{
     };
     vector<Node> arr;
  
-    LC_Segment_Tree(int n = 0){
-        arr.resize(4*n);
+    LC_Segment_Tree(){
+        arr.resize(4*MAX_V);
     }
  
+    // 1c9c03
     void update(Node val, int idx = 0, int ll = 0, int rr = MAX_V){
         if (rr-ll==0) return;
         if (rr-ll==1){

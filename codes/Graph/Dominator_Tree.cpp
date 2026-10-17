@@ -1,8 +1,9 @@
-// 全部都是 0-based
+// 全部都是 0-based，O((N + M) log N)
 // G 要是有向無權圖
-// 一開始要初始化 G(N, root)
+// 一開始要初始化 DT(N, root)
 // 用完之後要 build
-// G[i] = 從 root 走到 i 時，一定要走到的點且離 i 最近
+// DT[i] = 從 root 走到 i 時，一定要走到的點且離 i 最近
+// root 走不到的點 DT[i] = -1
 struct DominatorTree{
     int N;
     vector<vector<int>> G;
@@ -35,6 +36,7 @@ struct DominatorTree{
         G[u].push_back(v);
     }
 
+    // 0cfabe
     void dfs(int x){
         rev[dfn[x] = stamp] = x;
         fa[stamp] = sdom[stamp] = val[stamp] = stamp;
@@ -64,6 +66,7 @@ struct DominatorTree{
         fa[x] = y;
     }
 
+    // 0e419c
     void build(){
         dfs(root);
 

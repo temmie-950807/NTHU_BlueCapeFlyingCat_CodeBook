@@ -1,6 +1,6 @@
 // fast IO
-// 6f8879
-inline char readchar(){
+// af7cde
+inline int readchar(){
     static char buffer[BUFSIZ], * now = buffer + BUFSIZ, * end = buffer + BUFSIZ;
     if (now == end)
     {
@@ -8,6 +8,7 @@ inline char readchar(){
             return EOF;
         end = (buffer + fread(buffer, 1, BUFSIZ, stdin));
         now = buffer;
+        if (end == buffer) return EOF;
     }
     return *now++;
 }

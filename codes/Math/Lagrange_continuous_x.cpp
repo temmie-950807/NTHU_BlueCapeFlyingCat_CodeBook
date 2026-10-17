@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 const int MAX_N = 5e5 + 10;
 const int mod = 1e9 + 7;
 
@@ -26,6 +23,7 @@ struct Lagrange {
     int m, shift; // m = n + 1
     vector<int> v, mul;
 // You can use this function if you don't have inv_fac array already.
+    // e4a1d7
     void construct_inv_fac() {
         long long fac = 1;
         for (int i = 2; i < MAX_N; ++i) {
@@ -45,15 +43,16 @@ struct Lagrange {
         mul.resize(m);
     }
 // You can use sample(x) instead of sample(x % mod).
+    // 7dcc49
     int sample(int x) {
         x = ((long long)x + shift) % mod;
         x = (x < 0) ? (x + mod) : x;
         long long now = 1;
         for (int i = m; i >= 1; --i) {
             mul[i - 1] = now;
-            now = now * (x - i) % mod;
+            now = now * ((x - i + mod) % mod) % mod;
         }
-        int ret = 0;
+        long long ret = 0;
         bool neg = (m - 1) & 1;
         now = 1;
         for (int i = 1; i <= m; ++i) {
@@ -62,22 +61,9 @@ struct Lagrange {
             int tmp = ((long long)v[i - 1] * up % mod) * down % mod;
             ret += (neg && tmp) ? (mod - tmp) : (tmp);
             ret = (ret >= mod) ? (ret - mod) : ret;
-            now = now * (x - i) % mod;
+            now = now * ((x - i + mod) % mod) % mod;
             neg ^= 1;
         }
         return ret;
     }
 };
-
-int main() {
-    int n; cin >> n;
-    vector<int> v(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> v[i];
-    }
-    Lagrange L;
-    L.construct_inv_fac();
-    L.init(0, v);
-    int x; cin >> x;
-    cout << L.sample(x);
-}

@@ -18,6 +18,7 @@ struct LC_Segment_Tree {
     vector<Line> arr;
     LC_Segment_Tree(int n) : N(n), arr(4 * n + 5) {}
 
+    // 46b01d
     void insert_line(Line val, int idx, int l, int r) {
         if (arr[idx].a > val.a) swap(arr[idx], val);
         if (arr[idx].a == val.a) {

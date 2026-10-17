@@ -1,16 +1,16 @@
-struct Flow {
+struct MCMF {
 	struct Edge {
 		int u, rc, k, rv;
 	};
  
 	vector<vector<Edge>> G;
 	vector<int> par, par_eid;
-	Flow(int n) : G(n+1), par(n+1), par_eid(n+1) {}
+	MCMF(int n) : G(n+1), par(n+1), par_eid(n+1) {}
  
  	// v->u, capcity: c, cost: k
 	void add(int v, int u, int c, int k){
-		G[v].push_back({u, c, k, G[u].size()});
-		G[u].push_back({v, 0, -k, G[v].size()-1});
+		G[v].push_back({u, c, k, (int)G[u].size()});
+		G[u].push_back({v, 0, -k, (int)G[v].size()-1});
 	}
  
 	// 6d1140

@@ -1,3 +1,4 @@
+// N = 最高位元（如 30、62），init(插入次數*(N+1)+1)
 struct Trie{
     struct Data{
         int nxt[2]={0, 0};
@@ -7,7 +8,8 @@ struct Trie{
     vector<Data> arr;
 
     void init(int n){
-        arr.resize(n);
+        sz = 0;
+        arr.assign(n, Data());
     }
 
     void insert(int n){
@@ -26,7 +28,7 @@ struct Trie{
         for (int i=N ; i>=0 ; i--){
             int v=(n>>i)&1;
             if (arr[now].nxt[1-v]){
-                ret+=(1<<i);
+                ret+=(1LL<<i);
                 now=arr[now].nxt[1-v];
             }else if (arr[now].nxt[v]){
                 now=arr[now].nxt[v];

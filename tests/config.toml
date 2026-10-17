@@ -1,0 +1,4 @@
+# 只用 GCC 測（codebook 依賴 bits/stdc++.h、__int128 等 GCC 特性）
+[[languages.cpp.environments]]
+CXX = "g++"
+CXXFLAGS = ["-std=c++17", "-O2"]

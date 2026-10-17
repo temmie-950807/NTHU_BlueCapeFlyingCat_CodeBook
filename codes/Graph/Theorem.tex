@@ -4,7 +4,7 @@
             \item 最大匹配 + 最小邊覆蓋 = $n$ （不能有孤點）
             \item  點覆蓋的補集是獨立集。最小點覆蓋 + 最大獨立集 = $n$ 
             \item  $w($最小權點覆蓋$)$ + $w($最大權獨立集$) = \sum{w_v}$
-            \item  （帶點權的二分圖可以用最小割解，構造請參考 Augment Path.cpp ）
+            \item  （帶點權的二分圖可以用最小割解，構造請參考 Dinic.cpp 的 construct ）
         \end{itemize}
     \item 二分圖
         \begin{itemize}
@@ -18,7 +18,7 @@
         \end{itemize}
     \item 點、邊都帶權的二分圖的定理
         \begin{itemize}
-            \item b-matching：假設 $v$ 的點權是 $b_v$ ，那所有 $v$ 的匹配邊 $e$ 的權重都要滿足 $\sum{w_e}\leq b_v$ 。
+            \item b-matching：每條邊 $e$ 可以被選 $x_e$ 次（非負整數），每個點 $v$ 都要滿足 $\sum_{e \ni v}{x_e}\leq b_v$ ，權重為 $\sum{w_e x_e}$ 。
             \item The maximum w-weight of a b-matching equals the minimum b-weight of vertices in a w-vertex-cover.
         \end{itemize}
 \end{itemize}

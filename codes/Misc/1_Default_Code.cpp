@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
+const int INF = 1e18;
 #define debug(a...) cerr << #a << " = ", dout(a)
 void dout() { cerr << "\n"; }
 template <typename A, typename... B>

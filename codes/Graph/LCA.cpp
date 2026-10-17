@@ -23,7 +23,7 @@ struct Tree{
         }
     }
 
-    void build_LCA(int root = 0){
+    void build_LCA(){
         dfs();
         for (int i=0 ; i<N ; i++) LCA[0][i] = parent[i];
         for (int i=1 ; i<H ; i++){
@@ -40,6 +40,7 @@ struct Tree{
         return u;
     }
 
+    // 9512fe
     int get_LCA(int u, int v){
         if (dep[u]<dep[v]) swap(u, v);
         u = jump(u, dep[u]-dep[v]);

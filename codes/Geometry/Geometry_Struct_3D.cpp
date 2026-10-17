@@ -5,6 +5,7 @@ int sign(long long x) {return (x >= 0) ? ((bool)x) : -1; }
 int sign(ld x) {return (abs(x) < 1e-9) ? 0 : (x>0 ? 1 : -1);}
 
 template<typename T>
+// 4f5fa4
 struct pt3 {
     T x, y, z;
     pt3(){}
@@ -41,6 +42,7 @@ struct face {
 // O(n²)，最多只有 2n-4 個面
 // 當凸包退化時會回傳空的凸包，否則回傳凸包上的每個面
 template<typename T>
+// cbf680
 vector<face<T>> hull3(vector<pt3<T>> &v) {
     int n = v.size();
     if (n < 3) return {};
@@ -93,6 +95,6 @@ vector<face<T>> hull3(vector<pt3<T>> &v) {
         f.insert(f.end(), all(f2));
     }
     return f;
-} // 15ef50
+}
 
 

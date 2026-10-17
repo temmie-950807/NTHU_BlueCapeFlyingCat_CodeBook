@@ -10,3 +10,6 @@ list.tex
 *.fls
 *.xdv
 .claude/
+.venv/
+.competitive-verifier/
+tests/verify_files.json

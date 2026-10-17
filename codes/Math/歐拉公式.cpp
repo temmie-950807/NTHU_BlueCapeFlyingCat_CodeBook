@@ -17,7 +17,7 @@ int phi(int n){
 // O(n)，回傳 1~n 的 phi 值
 vector<int> phi_1_to_n(int n) {
     vector<int> primes, lpf(n + 1), phi(n + 1);
-    phi[0] = 0; phi[1] = 1;
+    phi[0] = 0; if (n >= 1) phi[1] = 1;
     for (int i = 2; i <= n; ++i) {
         if (lpf[i] == 0) {
             primes.push_back(i);

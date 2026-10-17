@@ -23,6 +23,7 @@ struct tarjan_SCC {
             if (!dfn[i]) dfs(i);
         }
     }
+    // 479417
     void dfs(int v) {
         now_T++;
         vis[v] = in_stack[v] = true;

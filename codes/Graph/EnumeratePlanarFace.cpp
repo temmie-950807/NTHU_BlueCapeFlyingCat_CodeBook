@@ -12,7 +12,10 @@ struct PlanarGraph { // 0-based index
     vector<vector<int>> F;
 /*  D : 對偶圖，平面圖的邊的編號是 [0, m - 1],
     outer face 的編號 = m, face 的編號是 [m + 1, m + faces]
-    F : 存每個 inner face 的 point index */
+    F : 存每個 inner face 的 point index
+    回傳每個 inner face 的「兩倍」面積（叉積和）
+    圖不連通時，face 裡面的其他連通塊（洞）不會被扣掉
+    O(m log m)：每個點的鄰邊要依極角排序 */
     vector<int> conv, nxt, vis;
 
     PlanarGraph(int n, vector<point<T>> _v) :

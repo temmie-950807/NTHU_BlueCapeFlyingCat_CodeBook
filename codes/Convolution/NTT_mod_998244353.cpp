@@ -4,10 +4,10 @@ const int MOD = (119 << 23) + 1, ROOT = 62; // = 998244353
 // For p < 2^30 there is also e.g. 5 << 25, 7 << 26, 479 << 21
 // and 483 << 21 (same root). The last two are > 10^9.
 
-// 7e041b
+// 76e5d5
 vector<int> rt(2, 1);
 void NTT_init(int n){
-    static bool lastInit = 0;
+    static int lastInit = 0;
     if (lastInit<n){
         lastInit = n;
         for (int k=2, s=2 ; k<n ; k*=2, s++){

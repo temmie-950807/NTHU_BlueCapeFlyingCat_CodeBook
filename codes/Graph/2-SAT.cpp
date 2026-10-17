@@ -7,8 +7,8 @@ struct TWO_SAT {
     void init(int _n) {
         n = _n;
         N = _n * 2;
-        G.resize(N + 5);
-        rev_G.resize(N + 5);
+        G.assign(N + 5, {});
+        rev_G.assign(N + 5, {});
     }
     void dfs1(int v) {
         used[v] = true;
@@ -25,6 +25,7 @@ struct TWO_SAT {
                 dfs2(u, cl);
         }
     }
+    // 5b6064
     bool solve() {
         order.clear();
         used.assign(N, false);
@@ -47,6 +48,7 @@ struct TWO_SAT {
         return true;
     }
     // A or B 都是 0-based
+    // ee9315
     void add_disjunction(int a, bool na, int b, bool nb) {
         // na is true => ~a, na is false => a
         // nb is true => ~b, nb is false => b

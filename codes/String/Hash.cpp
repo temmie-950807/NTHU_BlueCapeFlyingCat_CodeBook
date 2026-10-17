@@ -2,10 +2,10 @@ mt19937 seed(chrono::steady_clock::now().time_since_epoch().count());
 int rng(int l, int r){
     return uniform_int_distribution<int>(l, r)(seed);
 }
-int A = rng(1e5, 8e8);
-const int B = 1e9+7;
+const int B = (1LL<<61)-1;
+int A = rng(1e5, B-1);
 
-// 2f6192
+// 1903d7
 struct RollingHash{
     vector<int> Pow, Pre;
     RollingHash(string s = ""){
@@ -17,8 +17,8 @@ struct RollingHash{
                 Pow[i] = 1;
                 Pre[i] = s[i];
             }else{
-                Pow[i] = Pow[i-1]*A%B;
-                Pre[i] = (Pre[i-1]*A+s[i])%B;
+                Pow[i] = (__int128)Pow[i-1]*A%B;
+                Pre[i] = ((__int128)Pre[i-1]*A+s[i])%B;
             }
         }
 
@@ -27,7 +27,7 @@ struct RollingHash{
 
     int get(int l, int r){ // 取得 [l, r] 的數值
         if (l==0) return Pre[r];
-        int res = (Pre[r]-Pre[l-1]*Pow[r-l+1])%B;
+        int res = Pre[r]-(int)((__int128)Pre[l-1]*Pow[r-l+1]%B);
         if (res<0) res += B;
         return res;
     }

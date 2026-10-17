@@ -3,10 +3,11 @@ from decimal import *
 getcontext().prec = 6
 
 # system setting
+import sys
 sys.setrecursionlimit(100000)
-sys.set_int_max_str_digits(10000)
+sys.set_int_max_str_digits(10000) # Python 3.11+
 
-# turtle
+# turtle（teleport 需要 Python 3.12+）
 from turtle import *
 
 N = 3000000010
@@ -59,6 +60,6 @@ print(a.distance)
 
 # Fraction
 from fractions import Fraction
-a = Fraction(Decimal(1.1))
+a = Fraction(Decimal("1.1"))
 a.numerator # 分子
 a.denominator # 分母

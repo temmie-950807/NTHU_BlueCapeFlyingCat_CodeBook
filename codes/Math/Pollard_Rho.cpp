@@ -3,7 +3,7 @@ int rnd(int l, int r){
     return uniform_int_distribution<int>(l, r)(seed);
 }
 
-// O(n^{1/4}) 回傳 1 或自己的因數、記得先判斷 n 是不是質數（用 Miller-Rabin）
+// O(n^{1/4}) 回傳 n 的一個因數（可能回傳 n 本身，此時要重試）、記得先判斷 n 是不是質數（用 Miller-Rabin）
 // c1670c
 int Pollard_Rho(int n){
     int s = 0, t = 0;

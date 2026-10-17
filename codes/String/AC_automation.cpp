@@ -32,6 +32,7 @@ struct ACAutomation{
     }
 
     // counting pattern
+    // b2a28c
     void buildMatch(string &s){
         int now = 0;
         for (char c : s){

@@ -1,11 +1,10 @@
 // 邊 u → v 表示選 u 就要選 v (0-based)
-// 保證回傳值非負
-// 構造：呼叫 construct，選那些 vis 是 true 的點。
-// 一般圖：O(n²m) / 二分圖：O(m√n)
+// 回傳 {最大權（保證非負）, 選的點}
+// 一般圖：O(n²m) / 二分圖且 |w_i| = 1：O(m√n)
 template<typename U>
-U maximum_closure(vector<U> w, vector<pair<int,int>> EV) {
+pair<U, vector<int>> maximum_closure(vector<U> w, vector<pair<int,int>> EV) {
     int n = w.size(), S = n + 1, T = n + 2;
-    Flow G(T + 5); // Graph/Dinic.cpp
+    Dinic G(T + 5); // Graph/Dinic.cpp
     U sum = 0;
     for (int i = 0; i < n; ++i) {
         if (w[i] > 0) {
@@ -20,5 +19,9 @@ U maximum_closure(vector<U> w, vector<pair<int,int>> EV) {
         G.add(u, v, INF);
     }
     U cut = G.flow(S, T);
-    return sum - cut;
+    vector<bool> vis(T + 5);
+    G.dfs_mincut(S, vis);
+    vector<int> ret;
+    for (int i = 0; i < n; ++i) if (vis[i]) ret.push_back(i);
+    return {sum - cut, ret};
 }

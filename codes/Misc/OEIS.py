@@ -1,4 +1,5 @@
 from fractions import Fraction as F
+# s = 1 1 3 7 17 回傳 [2, 1]，代表 s[i] = 2*s[i-1] + 1*s[i-2]（跟 OEIS.cpp 順序相反）
 def BM(s):
     n = len(s); L=m=0; C=[F(0)]*n; B=[F(0)]*n; C[0]=B[0]=F(1); b=F(1)
     for i in range(n):

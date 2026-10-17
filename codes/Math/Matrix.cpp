@@ -25,6 +25,7 @@ struct Matrix{
         return ret;
     }
 
+    // cef037
     Matrix pow(int p){
         Matrix ret(n, n), mul = *this;
         for (int i=0 ; i<n ; i++){
@@ -40,6 +41,7 @@ struct Matrix{
     }
 
     
+    // b17df2
     int det(){
         vector<vector<int>> arr = this->arr;
         bool flag = false;
@@ -59,7 +61,7 @@ struct Matrix{
 
             for (int j=i+1 ; j<n ; j++){
                 if (!arr[j][i]) continue;
-                int freq = arr[j][i]*qp(arr[i][i], MOD-2)%MOD;
+                int freq = arr[j][i]*qp((arr[i][i]%MOD+MOD)%MOD, MOD-2, MOD)%MOD;
                 for (int k=i ; k<n ; k++){
                     arr[j][k] -= freq*arr[i][k];
                     arr[j][k] = (arr[j][k]%MOD+MOD)%MOD;
@@ -72,6 +74,6 @@ struct Matrix{
             ret *= arr[i][i];
             ret %= MOD;
         }
-        return ret;
+        return (ret%MOD+MOD)%MOD;
     }
 };

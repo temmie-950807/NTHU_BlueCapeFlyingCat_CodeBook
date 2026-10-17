@@ -1,0 +1,27 @@
+name: verify
+
+on:
+  push:
+    paths: ["codes/**", "tests/**", ".github/workflows/verify.yml"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install competitive-verifier
+      # 快取 Library Checker 產生的測資，避免每次重新生成
+      - uses: actions/cache@v4
+        with:
+          path: .competitive-verifier/cache
+          key: cv-${{ hashFiles('tests/**') }}
+          restore-keys: cv-
+      - run: competitive-verifier oj-resolve --include tests --config tests/config.toml > verify_files.json
+      - run: |
+          ulimit -s unlimited
+          competitive-verifier verify --verify-json verify_files.json --check-error --write-summary
