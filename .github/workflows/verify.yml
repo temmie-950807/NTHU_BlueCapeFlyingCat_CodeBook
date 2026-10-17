@@ -2,7 +2,7 @@ name: verify
 
 on:
   push:
-    paths: ["codes/**", "tests/**", ".github/workflows/verify.yml"]
+    paths: ["codes/**", "tests/**", "build.py", "Codebook*.tex", "fonts/**", ".github/workflows/verify.yml"]
   pull_request:
   workflow_dispatch:
 
@@ -13,6 +13,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 tests/check_hash.py
+
+  # 用 build.py 產生 Codebook.pdf，可在 Actions 頁面下載；超過 25 頁就失敗
+  pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends texlive-xetex texlive-lang-cjk texlive-latex-extra poppler-utils > /dev/null
+      - run: python3 build.py
+      - run: |
+          pages=$(pdfinfo Codebook.pdf | awk '/^Pages:/ {print $2}')
+          echo "Codebook.pdf：$pages 頁（上限 25）" >> "$GITHUB_STEP_SUMMARY"
+          [ "$pages" -le 25 ] || { echo "超過 25 頁：$pages"; exit 1; }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Codebook
+          path: |
+            Codebook.pdf
+            Codebook.log
 
   verify:
     runs-on: ubuntu-latest
@@ -28,6 +49,7 @@ jobs:
           path: .competitive-verifier/cache
           key: cv-${{ hashFiles('tests/**') }}
           restore-keys: cv-
+      - run: python3 tests/build_geometry.py
       - run: competitive-verifier oj-resolve --include tests --config tests/config.toml > verify_files.json
       - run: |
           ulimit -s unlimited

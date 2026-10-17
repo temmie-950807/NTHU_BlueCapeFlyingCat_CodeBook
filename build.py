@@ -177,6 +177,19 @@ def has_long_comment_at_start(file_path):
     _, has_comment = remove_long_comment_from_start(file_path)
     return has_comment
 
+def find_cpp():
+    """找支援 -fpreprocessed 的 GCC cpp（macOS 的 cpp 是 clang，不支援）"""
+    for c in [os.environ.get("CPP"), "cpp-16", "cpp-15", "cpp-14", "cpp-13", "cpp"]:
+        try:
+            if c and subprocess_run([c, "-fpreprocessed", "-P", "-dD"], input="int x;",
+                                    stdout=subprocess_PIPE, stderr=subprocess_PIPE, text=True).returncode == 0:
+                return c
+        except FileNotFoundError:
+            pass
+    raise RuntimeError("找不到支援 -fpreprocessed 的 GCC cpp（可用環境變數 CPP 指定）")
+
+CPP = find_cpp()
+
 def get_hash(file_path):
     # 檢查是否有開頭長註解
     processed_content, has_comment = remove_long_comment_from_start(file_path)
@@ -194,7 +207,7 @@ def get_hash(file_path):
 
             # 使用臨時文件計算 hash
             cpp_process = subprocess_run(
-                ["cpp", "-dD", "-P", "-fpreprocessed", temp_path],
+                [CPP, "-dD", "-P", "-fpreprocessed", temp_path],
                 stdout=subprocess_PIPE,
                 stderr=subprocess_PIPE,
                 text=True
@@ -209,7 +222,7 @@ def get_hash(file_path):
     else:
         # 沒有長註解，直接處理原文件
         cpp_process = subprocess_run(
-            ["cpp", "-dD", "-P", "-fpreprocessed", file_path],
+            [CPP, "-dD", "-P", "-fpreprocessed", file_path],
             stdout=subprocess_PIPE,
             stderr=subprocess_PIPE,
             text=True

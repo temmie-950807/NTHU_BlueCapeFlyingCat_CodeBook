@@ -13,3 +13,4 @@ list.tex
 .venv/
 .competitive-verifier/
 tests/verify_files.json
+tests/geometry_lib.hpp
